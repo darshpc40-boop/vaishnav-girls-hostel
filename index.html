@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vaishnav Girls Hostel</title>
+  <meta name="description" content="Vaishnav Girls Hostel — safe, comfortable, affordable accommodation for students." />
+
+  <style>
+    /* ====== RESET & BASE ====== */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root{
+      --brand:#0b6e6e;
+      --accent:#f0c987;
+      --muted:#666;
+      --card:#fff;
+      --bg:#f7f9fb;
+      --radius:12px;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    body{ background:var(--bg); color:#222; line-height:1.45; padding-bottom:40px; }
+    a{ color:var(--brand); text-decoration:none; }
+    img{ max-width:100%; display:block; border-radius:8px; }
+
+    /* ====== LAYOUT ====== */
+    .container{ width:min(1100px,94%); margin:0 auto; }
+
+    header{
+      background:linear-gradient(90deg, rgba(11,110,110,0.95), rgba(6,80,80,0.95));
+      color:white; padding:14px 0; position:sticky; top:0; z-index:50;
+      box-shadow:0 6px 18px rgba(5,40,40,0.12);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .brand{ display:flex; gap:12px; align-items:center; font-weight:700; font-size:1.1rem; }
+    .brand .logo{ width:44px; height:44px; border-radius:10px; background:var(--accent); display:flex; align-items:center; justify-content:center; color:#222; font-weight:800; }
+    nav ul{ list-style:none; display:flex; gap:18px; align-items:center; }
+    nav a{ color:white; font-weight:600; font-size:0.95rem; opacity:0.95; }
+    .cta-btn{ background:var(--accent); color:#222; padding:8px 12px; border-radius:8px; font-weight:700; }
+
+    /* mobile nav */
+    .mobile-toggle{ display:none; background:transparent; border:0; color:white; font-size:1.2rem; }
+    @media (max-width:860px){
+      nav ul{ display:none; position:absolute; right:12px; top:64px; background:rgba(255,255,255,0.98); color:#222; flex-direction:column; padding:12px; border-radius:10px; box-shadow:0 8px 30px rgba(10,10,10,0.12); width:220px; }
+      nav ul.show{ display:flex; }
+      nav a{ color:var(--brand); }
+      .mobile-toggle{ display:inline-block; }
+    }
+
+    /* ====== HERO ====== */
+    .hero{ display:grid; grid-template-columns:1fr 420px; gap:28px; align-items:center; padding:44px 0; }
+    .hero-card{ background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.95)); border-radius:20px; padding:28px; box-shadow:0 6px 30px rgba(12,40,40,0.06); }
+    .hero h1{ font-size:1.9rem; margin-bottom:10px; color:#043737; }
+    .hero p.lead{ color:var(--muted); margin-bottom:16px; }
+    .features{ display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+    .feature{ background:rgba(11,110,110,0.06); padding:8px 10px; border-radius:999px; font-weight:600; font-size:0.85rem; color:var(--brand); }
+
+    @media (max-width:980px){
+      .hero{ grid-template-columns:1fr; }
+    }
+
+    /* ====== SECTIONS ====== */
+    section{ margin:28px 0; }
+    .grid{ display:grid; gap:18px; grid-template-columns:repeat(3,1fr); }
+    @media (max-width:980px){ .grid{ grid-template-columns:repeat(2,1fr); } }
+    @media (max-width:600px){ .grid{ grid-template-columns:1fr; } }
+
+    .card{ background:var(--card); border-radius:16px; padding:18px; box-shadow:0 6px 16px rgba(10,20,30,0.04); }
+    .room-title{ font-weight:700; color:#0b4f4f; margin-bottom:6px; }
+
+    /* gallery */
+    .gallery{ display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+    @media (max-width:980px){ .gallery{ grid-template-columns:repeat(3,1fr); } }
+    @media (max-width:680px){ .gallery{ grid-template-columns:repeat(2,1fr); } }
+
+    .gallery img{ cursor:pointer; border-radius:10px; height:140px; object-fit:cover; }
+
+    /* contact */
+    .contact-grid{ display:grid; grid-template-columns:1fr 380px; gap:20px; }
+    @media (max-width:980px){ .contact-grid{ grid-template-columns:1fr; } }
+    form input, form textarea, form select{ width:100%; padding:10px 12px; border-radius:10px; border:1px solid #e2e8f0; margin-bottom:10px; font-size:0.95rem; }
+    form button{ background:var(--brand); color:white; padding:10px 14px; border-radius:10px; border:0; font-weight:700; cursor:pointer; }
+
+    footer{ margin-top:28px; text-align:center; color:var(--muted); padding:18px 0; }
+
+    /* modal */
+    .modal{ position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,0.55); z-index:120; padding:20px; }
+    .modal .modal-content{ max-width:980px; width:100%; border-radius:14px; overflow:hidden; }
+    .modal img{ width:100%; height:auto; display:block; }
+
+    /* small helpers */
+    .row{ display:flex; gap:12px; align-items:center; }
+    .price{ margin-top:8px; font-weight:800; color:#0b6e6e; font-size:1.05rem; }
+    .muted{ color:var(--muted); font-size:0.95rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">V</div>
+        <div>
+          <div style="font-size:1.05rem">Vaishnav Girls Hostel</div>
+          <div style="font-size:0.77rem; opacity:.9">Safe • Comfortable • Affordable</div>
+        </div>
+      </div>
+
+      <nav>
+        <button class="mobile-toggle" id="navToggle" aria-label="menu">☰</button>
+        <ul id="menu">
+          <li><a href="#about">About</a></li>
+          <li><a href="#rooms">Rooms</a></li>
+          <li><a href="#facilities">Facilities</a></li>
+          <li><a href="#gallery">Gallery</a></li>
+          <li><a href="#contact" class="cta-btn">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-card">
+        <h1>Welcome to Vaishnav Girls Hostel</h1>
+        <p class="lead">A secure and friendly home for college girls near major campuses. 24/7 security, nutritious mess, clean rooms, and fast Wi-Fi.</p>
+        <div class="features">
+          <div class="feature">24/7 Security</div>
+          <div class="feature">Mess Facility</div>
+          <div class="feature">Wi-Fi</div>
+          <div class="feature">Laundry Service</div>
+        </div>
+
+        <div style="margin-top:18px;">
+          <strong>Contact:</strong> +91 7028073309 &nbsp; • &nbsp; satpur,ashoknagar,nashik
+        </div>
+
+        <div style="margin-top:18px;" class="row">
+          <a href="#rooms" class="cta-btn">View Rooms</a>
+          <a href="#contact" style="padding:9px 12px; background:transparent; border-radius:8px; border:1px solid rgba(11,110,110,0.12)">Request a Visit</a>
+        </div>
+      </div>
+
+      <div>
+        <div style="border-radius:20px; overflow:hidden;">
+          <img alt="Hostel building" src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3&s=8b8d28f6a5e6a6a4b5f5d2e1c2c6f7a1" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="card">
+      <h2>About Us</h2>
+      <p class="muted" style="margin-top:8px;">
+        Vaishnav Girls Hostel provides a clean, secure environment for students and working women. We focus on comfort, hygiene, and a community atmosphere. Located minutes from several colleges, we offer single, double, and triple-sharing rooms along with daily mess and housekeeping.
+      </p>
+    </section>
+
+    <!-- ROOMS -->
+    <section id="rooms">
+      <h2 style="margin-bottom:12px;">Rooms & Pricing</h2>
+      <div class="grid">
+        <div class="card">
+          <div class="room-title">Single Room</div>
+          <div class="muted">Private bed, study table, attached bathroom</div>
+          <div class="price">₹6,500 / month</div>
+        </div>
+        <div class="card">
+          <div class="room-title">Double Sharing</div>
+          <div class="muted">Two beds, shared bathroom, shared wardrobe</div>
+          <div class="price">₹4,000 / month (per person)</div>
+        </div>
+        <div class="card">
+          <div class="room-title">Triple Sharing</div>
+          <div class="muted">Budget-friendly, common bathroom</div>
+          <div class="price">₹3,200 / month (per person)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Facilities -->
+    <section id="Facilities" class="card">
+      <h2>Facilities</h2>
+      <div style="margin-top:12px;" class="grid">
+        <div>
+          <ul style="list-style:disc;padding-left:18px;color:var(--muted);">
+            <li>24/7 Security & CCTV</li>
+            <li>Nutritious Mess with monthly & daily plans</li>
+            <li>High-speed Wi-Fi</li>
+            <li>Laundry & Housekeeping</li>
+          </ul>
+        </div>
+        <div>
+          <ul style="list-style:disc;padding-left:18px;color:var(--muted);">
+            <li>Study Room & Common Lounge</li>
+            <li>Emergency Medical Support</li>
+            <li>Power backup</li>
+            <li>Nearby public transport & eateries</li>
+          </ul>
+        </div>
+        <div>
+          <div style="background:linear-gradient(90deg,#eef9f9,#f7fff9); padding:12px; border-radius:10px;">
+            <strong>Why choose us?</strong>
+            <p class="muted" style="margin-top:8px;">Comfort, convenience and community — designed to make your college life easier and safer.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="gallery">
+      <h2>Gallery</h2>
+      <div style="margin-top:12px;" class="gallery" id="galleryGrid">
+        <img data-src="image.jpg.jpg" alt="room 1" />
+        <img data-src="image.jpg" alt="common area" />
+        <img data-src="image..jpg" alt="mess" />
+        <img data-src="" alt="study" />
+        <img data-src="" alt="exterior" />
+        <img data-src="" alt="bed" />
+      </div>
+      <p class="muted" style="margin-top:8px;">Click any image to enlarge.</p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card">
+      <h2>Contact & Location</h2>
+      <div class="contact-grid" style="margin-top:12px;">
+        <div>
+          <p class="muted">For inquiries or a visit, fill the form or call us at <strong>+91 7028073309</strong>.</p>
+
+          <form id="contactForm" onsubmit="return handleForm(event)">
+            <input type="text" id="name" placeholder="Your name" required />
+            <input type="email" id="email" placeholder="Your email" required />
+            <input type="tel" id="phone" placeholder="Phone number" />
+            <select id="interest">
+              <option value="visit">Request a visit</option>
+              <option value="enquiry">General enquiry</option>
+              <option value="booking">Booking</option>
+            </select>
+            <textarea id="message" rows="5" placeholder="Message (e.g., preferred move-in date)"></textarea>
+            <button type="submit">Send Message</button>
+            <p id="formMsg" style="margin-top:8px;color:var(--muted); font-size:0.95rem"></p>
+          </form>
+        </div>
+
+        <div>
+          <div style="border-radius:12px; overflow:hidden;" class="card">
+            <!-- Replace the src URL with your Google Maps embed link when ready -->
+            <iframe
+              title="Vaishnav Girls Hostel Location (placeholder)"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3749.4288622383788!2d73.70753927420921!3d19.990507522629507!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddedebb1839f45%3A0xd70eed0c81188b0f!2sVaishnav%20Girls%20Hostel!5e0!3m2!1sen!2sin!4v1756843405954!5m2!1sen!2sin" 
+              style="width:100%; height:320px; border:0;"
+              loading="lazy"></iframe>
+          </div>
+
+          <div style="margin-top:12px;" class="card">
+            <strong>Address</strong>
+            <p class="muted" style="margin-top:6px;">Nagre chowk,near bhaji market,ashoknagar,nashik,maharashtra 422012</p>
+            <p style="margin-top:8px;"><strong>Office:</strong> +91 7028073309</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      © <span id="year"></span> Vaishnav Girls Hostel — All rights reserved.
+    </footer>
+  </main>
+
+  <!-- IMAGE MODAL (hidden by default) -->
+  <div id="modal" class="modal" style="display:none;" aria-hidden="true">
+    <div class="modal-content" role="dialog" aria-modal="true">
+      <img id="modalImg" src="" alt="Enlarged" />
+    </div>
+  </div>
+
+  <script>
+    // ====== Basic interactive JS ======
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Mobile nav toggle
+    const navToggle = document.getElementById('navToggle');
+    const menu = document.getElementById('menu');
+    navToggle.addEventListener('click', ()=> menu.classList.toggle('show'));
+
+    // Lazy-load gallery images & click-to-enlarge
+    const galleryGrid = document.getElementById('galleryGrid');
+    galleryGrid.querySelectorAll('img').forEach(img=>{
+      const src = img.getAttribute('data-src');
+      if(src) img.src = src;
+      img.addEventListener('click', ()=> openModal(img.src, img.alt));
+    });
+
+    const modal = document.getElementById('modal');
+    const modalImg = document.getElementById('modalImg');
+    function openModal(src, alt){
+      modalImg.src = src;
+      modalImg.alt = alt || 'Image';
+      modal.style.display = 'flex';
+      modal.setAttribute('aria-hidden','false');
+    }
+    // close modal when clicking outside image
+    modal.addEventListener('click', (e)=>{
+      if(e.target === modal) { modal.style.display='none'; modal.setAttribute('aria-hidden','true'); }
+    });
+
+    // Simple contact form handling (client-side)
+    function handleForm(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const msgEl = document.getElementById('formMsg');
+
+      if(!name || !email){ msgEl.textContent = 'Please enter name and email.'; return false; }
+
+      // Simulate sending — in real site, POST to your server or to a forms service.
+      msgEl.style.color = 'green';
+      msgEl.textContent = 'Thanks, ' + name.split(' ')[0] + '! Your message was received. We will contact you shortly.';
+
+      // reset form after confirmation
+      e.target.reset();
+      return false;
+    }
+
+    // Accessibility: close modal with Escape
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') { modal.style.display = 'none'; modal.setAttribute('aria-hidden','true'); }
+    });
+
+    // Close mobile menu when clicking a link
+    menu.querySelectorAll('a').forEach(a=>{
+      a.addEventListener('click', ()=> menu.classList.remove('show'));
+    });
+  </script>
+</body>
+</html>f
